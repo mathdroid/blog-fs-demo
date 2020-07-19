@@ -15,7 +15,7 @@ const Blog = (props) => (
       <a>Home</a>
     </Link>
     <Debug value={props} />
-    <Link href={`/api/preview?slug=/blog/${slug}`}>
+    <Link href={`/api/preview?slug=/blog/${props.slug}`}>
       <a>Enter Preview Mode</a>
     </Link>
 
