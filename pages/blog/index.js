@@ -1,5 +1,6 @@
 import fs from "fs";
 import { promisify } from "util";
+import { resolve } from "path";
 
 import Link from "next/link";
 
@@ -15,15 +16,23 @@ const Blog = (props) => (
         <a>{blog}</a>
       </Link>
     ))}
+    <Link href={`/api/preview?slug=/blog`}>
+      <a>Enter Preview Mode</a>
+    </Link>
+
+    <Link href={`/api/clear-preview`}>
+      <a>Exit Preview Mode</a>
+    </Link>
   </>
 );
 
 export default Blog;
 
-export const getStaticProps = async () => {
-  const blogs = await readdir("./blog");
+export const getStaticProps = async (context) => {
+  const blogs = await readdir(resolve(process.cwd(), "./blog"));
   return {
     props: {
+      isPreview: context.preview || false,
       blogs,
     },
   };
